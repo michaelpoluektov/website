@@ -1,0 +1,18 @@
+{
+  "name": "personal-website",
+  "private": true,
+  "packageManager": "bun@1.4.2",
+  "engines": {
+    "bun": "1.4.2"
+  },
+  "scripts": {
+    "check": "bun run lint && bun run format:check",
+    "lint": "bun run --bun html-validate --max-warnings 0 \"public/**/*.html\"",
+    "format:check": "bun run --bun prettier --check public .github/workflows package.json .htmlvalidate.json README.md",
+    "format": "bun run --bun prettier --write public .github/workflows package.json .htmlvalidate.json README.md"
+  },
+  "devDependencies": {
+    "html-validate": "11.16.2",
+    "prettier": "3.9.9"
+  }
+}
