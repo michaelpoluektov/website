@@ -1,0 +1,45 @@
+---
+import { site } from "../data/site";
+import { getPosts } from "../lib/posts";
+import PostList from "../components/PostList.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const { profile } = site;
+const recentPosts = getPosts().slice(0, 3);
+---
+
+<SiteLayout title="Personal website" description={site.description}>
+  <section class="profile" aria-labelledby="profile-name">
+    <div>
+      <p class="eyebrow">Profile</p>
+      <h1 id="profile-name">{profile.name}</h1>
+      <p class="profile-bio">{profile.bio}</p>
+      <p class="profile-links">
+        {profile.links.length > 0
+          ? profile.links.map((link, index) => (
+              <>
+                {index > 0 && " · "}
+                <a href={link.href}>{link.label}</a>
+              </>
+            ))
+          : profile.linksPlaceholder}
+      </p>
+    </div>
+    <img
+      class="profile-image"
+      src={profile.image.src}
+      alt={profile.image.alt}
+      width={profile.image.width}
+      height={profile.image.height}
+    />
+  </section>
+  <section aria-labelledby="recent-posts">
+    <div class="section-heading">
+      <h2 id="recent-posts">Recent posts</h2>
+      <a class="section-meta" href="/blog/">
+        All posts →
+      </a>
+    </div>
+    <PostList posts={recentPosts} headingLevel="h3" />
+  </section>
+</SiteLayout>

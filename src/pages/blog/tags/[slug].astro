@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getTags, type Post } from "../../../lib/posts";
+import PostList from "../../../components/PostList.astro";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+
+export const getStaticPaths = (() =>
+  getTags().map((tag) => ({
+    params: { slug: tag.slug },
+    props: { tag },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  tag: { slug: string; label: string; posts: Post[] };
+}
+
+const { tag } = Astro.props;
+---
+
+<SiteLayout title={tag.label} description={`Posts tagged ${tag.label}.`}>
+  <header class="page-intro">
+    <p class="eyebrow">
+      <a href="/blog/tags/">All tags</a>
+    </p>
+    <h1>{tag.label}</h1>
+  </header>
+  <section aria-labelledby="tag-posts">
+    <h2 class="visually-hidden" id="tag-posts">
+      Posts with this tag
+    </h2>
+    <PostList posts={tag.posts} />
+  </section>
+</SiteLayout>

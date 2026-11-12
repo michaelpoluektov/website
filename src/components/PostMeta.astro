@@ -1,0 +1,17 @@
+---
+import { site } from "../data/site";
+import { formatDate, type Post } from "../lib/posts";
+
+interface Props {
+  post: Post;
+  showAuthor?: boolean;
+}
+
+const { post, showAuthor = false } = Astro.props;
+---
+
+<div class="post-meta">
+  <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+  <span>{post.readingMinutes} min read</span>
+  {showAuthor && <span>By {post.author ?? site.profile.name}</span>}
+</div>

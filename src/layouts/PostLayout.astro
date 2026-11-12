@@ -1,0 +1,47 @@
+---
+import type { Post } from "../lib/posts";
+import PostMeta from "../components/PostMeta.astro";
+import PostTags from "../components/PostTags.astro";
+import SiteLayout from "./SiteLayout.astro";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+---
+
+<SiteLayout
+  title={post.title}
+  description={post.description}
+  noindex={post.draft}
+>
+  <article class="article" aria-labelledby="article-title">
+    <header class="article-header">
+      <p class="eyebrow">
+        <a href="/blog/">← All posts</a>
+      </p>
+      <h1 id="article-title">{post.title}</h1>
+      <PostMeta post={post} showAuthor />
+      <PostTags tags={post.tags} />
+    </header>
+    <div class="prose">
+      {post.toc.length > 0 && (
+        <nav class="table-of-contents" aria-label="Table of contents">
+          <h2>Contents</h2>
+          <ol>
+            {post.toc.map((section) => (
+              <li>
+                <a href={`#${section.id}`}>{section.title}</a>
+              </li>
+            ))}
+          </ol>
+        </nav>
+      )}
+      <slot />
+    </div>
+    <nav class="post-navigation" aria-label="Post navigation">
+      <a href="/blog/">← All posts</a>
+    </nav>
+  </article>
+</SiteLayout>

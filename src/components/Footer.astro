@@ -1,0 +1,12 @@
+---
+import { site } from "../data/site";
+
+const year = new Date().getUTCFullYear();
+---
+
+<footer class="site-footer">
+  <span>
+    © {year} {site.profile.name}
+  </span>
+  <a href="/feed.xml">Subscribe via RSS</a>
+</footer>

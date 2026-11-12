@@ -1,0 +1,45 @@
+---
+import { site } from "../data/site";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+const { title, description, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url);
+---
+
+<!doctype html>
+<html lang={site.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <title>{title} — {site.profile.name}</title>
+    {!noindex && <link rel="canonical" href={canonical} />}
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.profile.name} — Blog`}
+      href="/feed.xml"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      Skip to content
+    </a>
+    <div class="shell">
+      <Header pathname={Astro.url.pathname} />
+      <main id="main">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

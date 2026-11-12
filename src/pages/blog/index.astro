@@ -1,0 +1,23 @@
+---
+import { site } from "../../data/site";
+import { getPosts } from "../../lib/posts";
+import PostList from "../../components/PostList.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+---
+
+<SiteLayout title="Blog" description={site.blogDescription}>
+  <header class="page-intro">
+    <p class="eyebrow">Writing</p>
+    <h1>Blog</h1>
+    <p>{site.blogDescription}</p>
+    <p class="section-meta">
+      <a href="/blog/tags/">Browse tags</a> · <a href="/feed.xml">RSS feed</a>
+    </p>
+  </header>
+  <section aria-labelledby="all-posts">
+    <h2 class="visually-hidden" id="all-posts">
+      All posts
+    </h2>
+    <PostList posts={getPosts()} />
+  </section>
+</SiteLayout>

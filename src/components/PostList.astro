@@ -1,0 +1,31 @@
+---
+import type { Post } from "../lib/posts";
+import PostMeta from "./PostMeta.astro";
+import PostTags from "./PostTags.astro";
+
+interface Props {
+  posts: Post[];
+  headingLevel?: "h2" | "h3";
+}
+
+const { posts, headingLevel: Heading = "h2" } = Astro.props;
+---
+
+{posts.length === 0 ? (
+  <p class="section-meta">No posts yet.</p>
+) : (
+  <ol class="post-list">
+    {posts.map((post) => (
+      <li>
+        <article aria-labelledby={`post-${post.slug}-title`}>
+          <PostMeta post={post} />
+          <Heading id={`post-${post.slug}-title`}>
+            <a href={post.url}>{post.title}</a>
+          </Heading>
+          <p>{post.description}</p>
+          <PostTags tags={post.tags} />
+        </article>
+      </li>
+    ))}
+  </ol>
+)}

@@ -1,0 +1,30 @@
+---
+import type { PostMetadata } from "../lib/posts";
+
+export const post = {
+  slug: "post-template",
+  title: "[Post title]",
+  description: "[Add a short summary of this post.]",
+  publishedAt: "2026-01-01",
+  readingMinutes: 1,
+  draft: false,
+  tags: [{ slug: "tag-placeholder", label: "[Tag]" }],
+  toc: [
+    { id: "section-heading", title: "[Section heading]" },
+    { id: "references", title: "References" },
+  ],
+} satisfies PostMetadata;
+---
+
+<p>[Write the introduction to your post.]</p>
+<h2 id="section-heading">[Section heading]</h2>
+<p>
+  [Write the body of your post. Use headings, paragraphs, lists, links, and code
+  blocks as needed.]
+</p>
+<pre><code>[Add a code example, or remove this block.]</code></pre>
+<blockquote>
+  <p>[Add a quotation and attribution, or remove this block.]</p>
+</blockquote>
+<h2 id="references">References</h2>
+<p>[Add references and links, or remove this section.]</p>

@@ -1,0 +1,19 @@
+---
+import type { Post } from "../lib/posts";
+
+interface Props {
+  tags: Post["tags"];
+}
+
+const { tags } = Astro.props;
+---
+
+{tags.length > 0 && (
+  <ul class="tag-list" aria-label="Post tags">
+    {tags.map((tag) => (
+      <li>
+        <a href={`/blog/tags/${tag.slug}/`}>{tag.label}</a>
+      </li>
+    ))}
+  </ul>
+)}

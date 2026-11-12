@@ -1,0 +1,25 @@
+---
+import { getTags } from "../../../lib/posts";
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+
+const tags = getTags();
+---
+
+<SiteLayout title="Tags" description="Browse blog posts by topic.">
+  <header class="page-intro">
+    <p class="eyebrow">Blog</p>
+    <h1>Tags</h1>
+    <p>Browse posts by topic.</p>
+  </header>
+  <ul class="tag-list" aria-label="All blog tags">
+    {tags.map((tag) => (
+      <li>
+        <a href={`/blog/tags/${tag.slug}/`}>
+          {tag.label} · {tag.posts.length}
+          {tag.posts.length === 1 ? " post" : " posts"}
+        </a>
+      </li>
+    ))}
+  </ul>
+  {tags.length === 0 && <p class="section-meta">No tags yet.</p>}
+</SiteLayout>
